@@ -9,19 +9,27 @@ from keras.datasets import cifar10
 
 (X_train, y_train), (X_test, y_test) = cifar10.load_data()
 # %%
+"""CIFAR10 small images classification dataset.
+"""
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
 from .cifar import load_batch
-from ..utils.data.utils import get_file
-from .. import backend as k
+from ..utils.data_utils import get_file
+from .. import backend as K
 import numpy as np
 import os
 
+
 def load_data():
+    """Loads CIFAR10 dataset.
+
+    # Returns
+        Tuple of Numpy arrays: `(x_train, y_train), (x_test, y_test)`.
+    """
     dirname = 'cifar-10-batches-py'
-    origin ='https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz'
+    origin = 'https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz'
     path = get_file(dirname, origin=origin, untar=True)
 
     num_train_samples = 50000
@@ -31,8 +39,9 @@ def load_data():
 
     for i in range(1, 6):
         fpath = os.path.join(path, 'data_batch_' + str(i))
-        (x_train[(i - 1) * 10000: i * 10000, :, :, :], y_train[(i - 1) * 10000: i * 10000]) = load_batch(fpath)
-    
+        (x_train[(i - 1) * 10000: i * 10000, :, :, :],
+         y_train[(i - 1) * 10000: i * 10000]) = load_batch(fpath)
+
     fpath = os.path.join(path, 'test_batch')
     x_test, y_test = load_batch(fpath)
 
@@ -41,7 +50,7 @@ def load_data():
 
     if K.image_data_format() == 'channels_last':
         x_train = x_train.transpose(0, 2, 3, 1)
-        x_test = x_test_transpose(0, 2, 3, 1)
-    
+        x_test = x_test.transpose(0, 2, 3, 1)
+
     return (x_train, y_train), (x_test, y_test)
 # %%
