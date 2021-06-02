@@ -37,9 +37,34 @@ early_stopping_cb = keras.callbacks.EarlyStopping(patience=2,restore_best_weight
 
 history = model.fit(train_scaled, train_target, epochs=20, validation_data=(val_scaled, val_target), callbacks=[checkpoint_cb, early_stopping_cb])
 # %%
-import matplotlib.pyplot as plt
+import pyplot as plt
 # %%
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.xlabel('epoch')
+plt.ylabel('loss')
+plt.legend(['train', 'val'])
+plt.show()
 # %%
+model.evaluate(val_scaled, val_target)
 # %%
+plt.imshow(val_scaled[0].reshape(28, 28), cmap='gray_r')
+plt.show()
 # %%
+preds = model.predict(val_scaled[0:1])
+print(preds)
+# %%
+plt.bar(range(1, 11), preds[0])
+plt.xlabel('class')
+plt.ylabel('prob.')
+plt.show()
+# %%
+classes = ['티셔츠', '바지', '스웨터', '드레스', '코트', '샌달', '셔츠', '스니커즈', '가방', '앵클 부츠']
+# %%
+import numpy as np
+print(classes[np.argmax(preds)])
+# %%
+test_scaled = test_input.reshape(-1, 28, 28, 1) / 255.0
+# %%
+model.evaluate(test_scaled, test_target)
 # %%
