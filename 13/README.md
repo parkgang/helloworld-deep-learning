@@ -9,6 +9,8 @@ conda install scikit-learn
 
 conda install pydot
 conda install graphviz
+
+conda install matplotlib
 ```
 
 # 이슈

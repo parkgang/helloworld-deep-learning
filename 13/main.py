@@ -37,7 +37,7 @@ early_stopping_cb = keras.callbacks.EarlyStopping(patience=2,restore_best_weight
 
 history = model.fit(train_scaled, train_target, epochs=20, validation_data=(val_scaled, val_target), callbacks=[checkpoint_cb, early_stopping_cb])
 # %%
-import pyplot as plt
+import matplotlib.pyplot as plt
 # %%
 plt.plot(history.history['loss'])
 plt.plot(history.history['val_loss'])
