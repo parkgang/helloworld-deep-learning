@@ -30,15 +30,14 @@ keras.utils.plot_model(model)
 # %%
 keras.utils.plot_model(model, show_shapes=True, to_file='cnn-architecture.png', dpi=300)
 # %% 모델 컴파일과 훈련
-model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics='accuracy')
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=[keras.metrics.SparseCategoricalAccuracy()])
 
 checkpoint_cb = keras.callbacks.ModelCheckpoint('best-cnn-model.h5', save_best_only=True)
-early_stopping_cb = keras.callbacks.EarlyStopping(patience=2, restore_best_weights=True)
+early_stopping_cb = keras.callbacks.EarlyStopping(patience=2,restore_best_weights=True)
 
-history = model.fit(train_scaled, train_target, epochs=20,
-                    validation_data=(val_scaled, val_target),
-                    callbacks=[checkpoint_cb, early_stopping_cb])
+history = model.fit(train_scaled, train_target, epochs=20, validation_data=(val_scaled, val_target), callbacks=[checkpoint_cb, early_stopping_cb])
 # %%
+import matplotlib.pyplot as plt
 # %%
 # %%
 # %%
