@@ -8,6 +8,7 @@ MNIST 평균을 구하기 위해 진행된 프로젝트 입니다.
 conda install scikit-learn
 
 conda install pydot
+conda install graphviz
 ```
 
 # 레퍼런스
